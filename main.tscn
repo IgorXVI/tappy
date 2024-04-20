@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://docq285ybx5rs"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_3bn6q"]
+[ext_resource type="Texture2D" uid="uid://btm5dfpfkcr3m" path="res://assets/background/rocks_2.png" id="1_uhal2"]
+[ext_resource type="PackedScene" uid="uid://bjvbf56jif4f7" path="res://plane.tscn" id="2_3wnjb"]
+[ext_resource type="PackedScene" uid="uid://qhjwskvtb4bv" path="res://barrier.tscn" id="3_icl4e"]
+[ext_resource type="PackedScene" uid="uid://5r0rbc6hcgsu" path="res://pipes.tscn" id="4_iw0fo"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_3bn6q")
+pipes_scene = ExtResource("4_iw0fo")
+
+[node name="Rocks2" type="Sprite2D" parent="."]
+position = Vector2(919, 332)
+texture = ExtResource("1_uhal2")
+
+[node name="Plane" parent="." instance=ExtResource("2_3wnjb")]
+position = Vector2(87, 410)
+
+[node name="Barrier" parent="." instance=ExtResource("3_icl4e")]
+position = Vector2(-6, 862)
+
+[node name="Barrier2" parent="." instance=ExtResource("3_icl4e")]
+position = Vector2(1, -8)
+
+[node name="SpawnUpper" type="Marker2D" parent="."]
+position = Vector2(530, 340)
+
+[node name="SpawnLower" type="Marker2D" parent="."]
+position = Vector2(540, 540)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 1.811
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
