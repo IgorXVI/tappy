@@ -1,5 +1,8 @@
 extends Node2D
 
+@onready var score_sound: AudioStreamPlayer2D = $ScoreSound
+
+var _plane_died: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,8 +19,9 @@ func _on_screen_exited() -> void:
 
 
 func _on_laiser_body_exited(body: Node2D) -> void:
-	if body.is_in_group(GameManager.GROUP_PLAYER):
-		pass
+	if !_plane_died and body.is_in_group(GameManager.GROUP_PLAYER):
+		ScoreManager.increment_score()
+		score_sound.play()
 
 
 func _on_pipe_body_entered(body: Node2D) -> void:
@@ -25,4 +29,5 @@ func _on_pipe_body_entered(body: Node2D) -> void:
 		body.die()
 
 func _on_plane_died() -> void:
+	_plane_died = true
 	set_process(false)
